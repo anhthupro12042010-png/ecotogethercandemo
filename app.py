@@ -3,7 +3,12 @@ import numpy as np
 from PIL import Image
 import hashlib
 from database import create_table, get_user, update_user
-from tensorflow import lite as tflite
+try:
+    import tflite_runtime.interpreter as tflite
+    st.info("Đang dùng tflite-runtime")
+except ImportError:
+    from tensorflow import lite as tflite
+    st.info("Đang dùng tensorflow-lite")
 
 # ================== PAGE CONFIG ==================
 st.set_page_config(
@@ -226,4 +231,5 @@ else:
     st.info(f"Còn thiếu {500 - total} điểm")
 
 st.markdown('</div>', unsafe_allow_html=True)
+
 
